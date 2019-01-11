@@ -23,7 +23,7 @@ web:
     - db
     - tango
   ports:
-    - '80:80'
+    - '12301:12301'
     - '443:443'
   volumes:
     - ./Autolab/courses:/home/app/webapp/courses
