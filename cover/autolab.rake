@@ -2,7 +2,7 @@ require "fileutils"
 
 namespace :autolab do
   COURSE_NAME = "AutoPopulated"
-  USER_COUNT = 50
+  USER_COUNT = 3
   ASSESSMENT_CATEGORIES = ["Homework", "Lab", "Quiz"]
   ASSESSMENT_COUNT = 6
   PROBLEM_COUNT = 3

@@ -145,7 +145,16 @@ copy_config() {
   cp ../cover/start.sh ./Tango/start.sh
   cp ../cover/Dockerfile ./Autolab/Dockerfile
   cp ../cover/Dockerfile.tango ./Tango/Dockerfile
+  #reduce autopopulated users from 50 to 3
   cp ../cover/autolab.rake ./Autolab/lib/tasks/autolab.rake
+  #patch for base64 error
+  cp ../cover/extensions_controller.rb  ./Autolab/app/controllers/extensions_controller.rb
+  #txt mail templates in place of html
+  cp ../cover/reset_password_instructions.txt.erb ./Autolab/app/views/devise/mailer/
+  rm ./Autolab/app/views/devise/mailer/reset_password_instructions.html.erb
+  cp ../cover/confirmation_instructions.txt.erb ./Autolab/app/views/devise/mailer/
+  rm ./Autolab/app/views/devise/mailer/confirmation_instructions.html.erb
+
 
   if [ "$OPTION" == "local" ]
     then

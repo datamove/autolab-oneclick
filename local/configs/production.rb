@@ -72,22 +72,30 @@ Autolab3::Application.configure do
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
   # Provide context to the email generator about the host
-  # config.action_mailer.default_url_options = {protocol: 'http', host: 'example.com' }
+  config.action_mailer.default_url_options = {protocol: 'http', host: 'autolab.dlcourse.ru' }
 
-  config.action_mailer.delivery_method = :sendmail
+  #config.action_mailer.delivery_method = :sendmail
+  config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
-  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.raise_delivery_errors =  false
 
   # Use a custom smtp server, like Mandrill
-  # config.action_mailer.smtp_settings = {
-  #   address:              'smtp.mandrillapp.com',
-  #   port:                 25,
+  config.action_mailer.smtp_settings = {
+     address:              'slacker',
+     port:                 8025,
   #   enable_starttls_auto: true,
   #   authentication:       'login',
   #   user_name:            'MANDRILL_USERNAME',
   #   password:             'MANDRILL_PASSWORD',
   #   domain:               'example.com',
-  # }
+  }
+
+  config.action_mailer.default_options = {
+     from: "noreply@example.com",
+     charset:       "UTF-8",
+     content_type: "text/plain",
+     parts_order:  ["text/plain"]
+  }
 
   config.middleware.use ExceptionNotification::Rack,
     email: {
