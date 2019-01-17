@@ -145,6 +145,8 @@ copy_config() {
   cp ../cover/start.sh ./Tango/start.sh
   cp ../cover/Dockerfile ./Autolab/Dockerfile
   cp ../cover/Dockerfile.tango ./Tango/Dockerfile
+  #patch handin 500 error
+  cp ../cover/handin.rb ./Autolab/app/controllers/assessment/handin.rb
   #reduce autopopulated users from 50 to 3
   cp ../cover/autolab.rake ./Autolab/lib/tasks/autolab.rake
   #patch for base64 error
