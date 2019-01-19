@@ -257,8 +257,8 @@ module AssessmentAutograde
       hostname = `hostname`
       hostname = "https://" + hostname.strip
     end
-	dockerhost = `/sbin/ip route|awk '/default/ { print  $3}'`
-	hostname = "http://" + dockerhost.chomp	
+#	dockerhost = `/sbin/ip route|awk '/default/ { print  $3}'`
+#	hostname = "http://" + dockerhost.chomp	
 
     callback_url = (RESTFUL_USE_POLLING) ? "" :
       "#{hostname}/courses/#{course.name}/assessments/#{assessment.name}/autograde_done?dave=#{dave}&submission_id=#{submission.id}"
