@@ -16,15 +16,15 @@ services:
  web:
   build: ./Autolab
   ports:
-    - '80:12301'
-    - '443:443'
+    - '12301:80'
+    - '12343:443'
   volumes:
     - ./Autolab/courses:/home/app/webapp/courses
     
  slacker:
   image: datamove/slacker
   volumes: 
-    - /root/slacker/config.yml:/etc/slacker/config.yml
+    - /home/artem/slacker-config.yml:/etc/slacker/config.yml
   environment:
      PYTHONPATH: './'
 
