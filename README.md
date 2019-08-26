@@ -1,7 +1,7 @@
 # Autolab OneClick Installation
 
 This is a customized installer for CMU DL "passing together" course.
-The idea is to make it very simple for users to join. Users can only sing in using github oauth,and then automatically subscribed to the only course: CMUDL
+The idea is to make it very simple for users to join. Users can only sing in using github oauth,and then automatically subscribed to the only course: CMUDL. There is no need in sign-upda, confimation email, password changes etc.
 
 
 ## Differences in installer
@@ -22,9 +22,48 @@ The idea is to make it very simple for users to join. Users can only sing in usi
 * github-oauth is the only auth method left. When user is logged in with github oauth, he/she is automatically subsribed to "CMUDL"
 * Attention: github app id and secret must be added to the live container!
 
+## Customization
+
+* edit cover/autolab.rack to set your admin_email
+* edit cover/autolab.rack to set custom pre-created course name
+* edit cover/create_ods_user.rb to set a course name to automatically subscribe a newly signed in user.
+
+Once your images are built and the containers are up, login to the local_web_1 container:
+
+`docker exec -it local_web_1 bash`
+
+Find devise.rb and put there your github app id and secret. If you can suggest a better way, please do. I could not make .env working here.
+
+## Debugging
+
+Note, Autolab is clone from its repo during the installation, so as it evolves, patches applied by the installer may become incompatible.
+
+You do not have to clone autolab every time, i.e. instead of running installed.sh with you changes,  you can just use docker:
+
+`docker-compose up -d`
+
+and optionally `web rake` commands to reset the db.
 
 
-# Original README
+## Debugging users
+
+Use `rails console` inside the container:
+
+```
+User.all
+User.first
+User(where ...).first.
+User.new(...).save
+```
+
+To create a new user use code sample from autolab.rake.
+
+## Acknowledgements
+
+Petr Ermakov (datagym.ru, dlcourse.ru) for driving this project.
+Nick Bienko (@bikolya at ODS Slack) for adapting Autolab to this work mode.
+
+# Original README from Autolab team
 
 Autolab-OneClick is the fastest way to install a full autograding environment and course management system!
 
