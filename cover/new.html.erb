@@ -1,0 +1,26 @@
+<div class="sign-in-panel home">
+<br>
+
+<img src="/images/autolab.svg" alt="" class="valign login-logo">
+<h5>Login to Autolab</h5>
+
+<%- if devise_mapping.omniauthable? %>
+  <%- resource_class.omniauth_providers.each do |provider| %>
+        <% if provider.to_s.titleize == "Github" %>
+          <%= link_to user_omniauth_authorize_path(provider) do %>
+            <img src="https://coderwall-assets-0.s3.amazonaws.com/uploads/picture/file/4363/github.png" />
+
+          <% end %>
+          <br/>
+        <% end %>
+    <% end -%>
+<% end %>
+
+
+<br>
+<% if Rails.env == "development" %>
+<%= link_to "Developer Login", "/home/developer_login" %><br />
+<% end %>
+<%= render "devise/shared/links" %>
+
+</div>
