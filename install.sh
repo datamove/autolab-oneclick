@@ -150,17 +150,28 @@ copy_config() {
   #reduce autopopulated users from 50 to 3
   cp ../cover/autolab.rake ./Autolab/lib/tasks/autolab.rake
   #patch for base64 error
-  cp ../cover/extensions_controller.rb  ./Autolab/app/controllers/extensions_controller.rb
+  #cp ../cover/extensions_controller.rb  ./Autolab/app/controllers/extensions_controller.rb
   #txt mail templates in place of html
   cp ../cover/reset_password_instructions.txt.erb ./Autolab/app/views/devise/mailer/
   rm ./Autolab/app/views/devise/mailer/reset_password_instructions.html.erb
   cp ../cover/confirmation_instructions.txt.erb ./Autolab/app/views/devise/mailer/
   rm ./Autolab/app/views/devise/mailer/confirmation_instructions.html.erb
 
+  #Add gem
+  #echo gem "'omniauth-github', '~> 1.1', '>= 1.1.2'" >> ./Autolab/Gemfile
+  #also uglifier 3.2.0 for harmony: true
+  cp ../cover/Gemfile ./Autolab
+
+  #related to github outh
+  cp ../cover/user.rb ./Autolab/app/models/
+  cp ../cover/new.html.erb ./Autolab/app/views/devise/sessions/
+  cp ../cover/omniauth_callbacks_controller.rb ./Autolab/app/controllers/users/
+  cp ../cover/create_ods_user.rb ./Autolab/app/models/
 
   if [ "$OPTION" == "local" ]
     then
       cp ../cover/autograde.rb ./Autolab/app/controllers/assessment/autograde.rb
+      cp .env ./Autolab
   fi
 
   #User customize
@@ -178,10 +189,10 @@ copy_config() {
 make_volumes() {
   log "[4/6] make volumes..."
 
-  mkdir ./Autolab/courses
-  sudo chown -R 9999:9999 Autolab/courses
+  #mkdir ./Autolab/courses
+  #/sudo chown -R 9999:9999 Autolab/courses
   # create attachements folder
-  mkdir ./Autolab/attachments
+  #mkdir ./Autolab/attachments
   log "[4/6] Done"
 }
 
@@ -201,8 +212,8 @@ init_database() {
   docker-compose run --rm -e RAILS_ENV=production web rake db:migrate
   docker-compose run --rm -e RAILS_ENV=production web rake autolab:populate
 
-  cp -r ./Autolab/examples/hello/ ./Autolab/courses/AutoPopulated/hello/
-  chown -R 9999:9999 ./Autolab/courses/AutoPopulated/hello
+  # cp -r ./Autolab/examples/hello/ ./Autolab/courses/AutoPopulated/hello/
+  # chown -R 9999:9999 ./Autolab/courses/AutoPopulated/hello
 
   log "[6/6] Done"
 }
@@ -221,8 +232,8 @@ congrats() {
 ## Main Entry Point
 #########################################################
 cd $OPTION
-old_cleanup
-environment_setup
+#old_cleanup
+#environment_setup
 source_file_download
 copy_config
 make_volumes

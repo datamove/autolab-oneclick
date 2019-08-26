@@ -2,11 +2,13 @@ version: "3"
 services:
  db:
   image: mysql:5.7
+  ports:
+    - '3306:3306'
   environment:
     MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
   volumes:
     - ./Autolab/docker/mysql:/etc/mysql/conf.d
-    - ./db-data:/var/lib/mysql
+    - db_data:/var/lib/mysql
 
  tango:
   build: ./Tango
@@ -19,12 +21,15 @@ services:
     - '12301:80'
     - '12343:443'
   volumes:
-    - ./Autolab/courses:/home/app/webapp/courses
-    
- slacker:
-  image: datamove/slacker
-  volumes: 
-    - /home/artem/slacker-config.yml:/etc/slacker/config.yml
-  environment:
-     PYTHONPATH: './'
+    - autolab_courses:/home/app/webapp/courses
+volumes:
+  db_data:
+  autolab_courses:
+
+# slacker:
+#  image: datamove/slacker
+#  volumes: 
+#    - /home/artem/slacker-config.yml:/etc/slacker/config.yml
+#  environment:
+#     PYTHONPATH: './'
 

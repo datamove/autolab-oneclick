@@ -15,7 +15,8 @@ Autolab3::Application.configure do
 
   config.assets.enabled = true
   # Compress JavaScripts and CSS
-  config.assets.js_compressor = :uglifier
+  # config.assets.js_compressor = :uglifier
+  config.assets.js_compressor = Uglifier.new(harmony: true)
   config.assets.css_compressor = :sass
 
   # Don't fallback to assets pipeline if a precompiled asset is missed

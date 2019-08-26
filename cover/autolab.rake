@@ -1,11 +1,11 @@
 require "fileutils"
 
 namespace :autolab do
-  COURSE_NAME = "AutoPopulated"
+  COURSE_NAME = "CMUDL"
   USER_COUNT = 3
-  ASSESSMENT_CATEGORIES = ["Homework", "Lab", "Quiz"]
-  ASSESSMENT_COUNT = 6
-  PROBLEM_COUNT = 3
+  ASSESSMENT_CATEGORIES = ["Homework", "Quiz"]
+  ASSESSMENT_COUNT = 0
+  PROBLEM_COUNT = 0
   SUBMISSION_MAX = 3
   PROBLEM_MAX_SCORE = 100.0
   COURSE_START = Time.now - 80.days
@@ -83,9 +83,10 @@ namespace :autolab do
   end
 
   def load_users course
+    admin_email = "datamove@gmail.com"
 
-    if User.where(:email => "admin@foo.bar").first then
-      @grader = User.where(:email => "admin@foo.bar").first
+    if User.where(:email => admin_email).first then
+      @grader = User.where(:email => admin_email).first
     else
       @grader = User.new({
         first_name: "Autolab",
@@ -96,11 +97,11 @@ namespace :autolab do
         school: "SCS",
         major: "CS",
         year: "4",
-        email: "admin@foo.bar",
+        email: admin_email,
 
         administrator: true
       })
-      @grader.skip_confirmation!
+      # @grader.skip_confirmation!
       @grader.save
     end
 
@@ -146,7 +147,7 @@ namespace :autolab do
     end
 
     User.all.each do |u|
-      u.skip_confirmation!
+      #u.skip_confirmation!
       u.save!
     end
   end
@@ -333,26 +334,26 @@ namespace :autolab do
     puts "Creating Course #{args.name} and config file"
     course = load_course args.name
 
-    puts "Creating Assessments"
-    load_assessments course
+#    puts "Creating Assessments"
+#    load_assessments course
 
-    puts "Creating Problems"
-    load_problems course
+#    puts "Creating Problems"
+#    load_problems course
 
     puts "Fast-creating Users"
     load_users course
 
-    puts "Fast-creating Submissions and Scores (might take a while)"
-    load_submissions course
+#    puts "Fast-creating Submissions and Scores (might take a while)"
+#    load_submissions course
 
-    puts "Fast-creating AUDs"
-    load_auds course
+#    puts "Fast-creating AUDs"
+#    load_auds course
 
-    puts "Creating configuration files"
-    add_assessment_files course
+#    puts "Creating configuration files"
+#    add_assessment_files course
 
-    puts "Creating Autograde Assessment"
-    load_autograde_assessment course
+#    puts "Creating Autograde Assessment"
+#    load_autograde_assessment course
 
     course.reload_config_file
 
