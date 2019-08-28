@@ -24,15 +24,34 @@ The idea is to make it very simple for users to join. Users can only sing in usi
 
 ## Customization
 
-* edit cover/autolab.rack to set your admin_email
-* edit cover/autolab.rack to set custom pre-created course name
-* edit cover/create_ods_user.rb to set a course name to automatically subscribe a newly signed in user.
+### Autolab 
+
+* edit `cover/autolab.rack` to set your admin_email
+* edit `cover/autolab.rack` to set custom pre-created course name
+* edit `cover/create_ods_user.rb` to set a course name to automatically subscribe a newly signed in user.
+* edit `cover/new.html.erb` to customize login page.
 
 Once your images are built and the containers are up, login to the local_web_1 container:
 
 `docker exec -it local_web_1 bash`
 
 Find devise.rb and put there your github app id and secret. If you can suggest a better way, please do. I could not make .env working here.
+
+### Grading images
+
+Go to live tango container:
+
+`docker exec -it local_web_1 bash`
+
+and then pull your image,  i.e.:
+
+`docker pull datamove/cmudlimage:torch100`
+
+Then you need to retag the image, since Tango doesn't like / in the image:
+
+`docker tag datamove/cmudlimage:torch100 cmudlimage_torch100`
+
+`cmudlimage_torch100` is what you use in Autograder section of your assignment settings.
 
 ## Debugging
 
@@ -60,8 +79,8 @@ To create a new user use code sample from autolab.rake.
 
 ## Acknowledgements
 
-Petr Ermakov (datagym.ru, dlcourse.ru) for driving this project.
-Nick Bienko (@bikolya at ODS Slack) for adapting Autolab to this work mode.
+* Petr Ermakov (datagym.ru, dlcourse.ru) for driving this project.
+* Nick Bienko (@bikolya at ODS Slack) for adapting Autolab to this work mode.
 
 # Original README from Autolab team
 
