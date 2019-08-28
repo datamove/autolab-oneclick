@@ -55,9 +55,9 @@ Then you need to retag the image, since Tango doesn't like / in the image:
 
 ## Debugging
 
-Note, Autolab is clone from its repo during the installation, so as it evolves, patches applied by the installer may become incompatible.
+Note, Autolab is cloned from its repo during the installation, so as it evolves, patches applied by the installer may become incompatible.
 
-You do not have to clone autolab every time, i.e. instead of running installed.sh with you changes,  you can just use docker:
+You do not have to clone Autolab every time, i.e. instead of running install.sh with your changes, you can just use docker:
 
 `docker-compose up -d`
 
@@ -71,7 +71,7 @@ Use `rails console` inside the container:
 ```
 User.all
 User.first
-User(where ...).first.
+User(where ...).first
 User.new(...).save
 ```
 
