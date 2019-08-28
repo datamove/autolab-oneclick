@@ -1,7 +1,7 @@
 # Autolab OneClick Installation
 
-This is a customized installer for CMU DL "passing together" course.
-The idea is to make it very simple for users to join. Users can only sing in using github oauth,and then automatically subscribed to the only course: CMUDL. There is no need in sign-upda, confimation email, password changes etc.
+This is a customized installer for CMU DL "passing together" course (https://dlcmu.datagym.ru/).
+The idea is to make it very simple for users to join. Users can only sign in using Github OAuth,and then automatically subscribed to the only course: CMUDL. There is no need in sign-ups, confimation email, password changes etc.
 
 
 ## Differences in installer
