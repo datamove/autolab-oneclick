@@ -16,8 +16,11 @@ class CreateOdsUser
     user = User.new
 
     ActiveRecord::Base.transaction do
-      user.first_name = data["info"]["name"].split(' ', 2).first || data["info"]["nickname"]
-      user.last_name = data["info"]["name"].split(' ', 2).last || data["info"]["nickname"]
+      #use nickname and uid to avoid issues if name is not in ascii
+      user.first_name = data["info"]["nickname"]
+      user.last_name = data["uid"]
+      #user.first_name = data["info"]["name"].split(' ', 2).first || data["info"]["nickname"]
+      #user.last_name = data["info"]["name"].split(' ', 2).last || data["info"]["nickname"]
       user.email = data["info"]["email"]
       user.authentications.new(provider: data["provider"], uid: data["uid"])
       temp_pass = Devise.friendly_token[0, 20]

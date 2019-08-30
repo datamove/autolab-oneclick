@@ -22,6 +22,12 @@ The idea is to make it very simple for users to join. Users can only sign in usi
 * github-oauth is the only auth method left. When user is logged in with github oauth, he/she is automatically subsribed to "CMUDL"
 * Attention: github app id and secret must be added to the live container!
 
+## Known issues
+
+* User can not edit his/her personal information: vising profile leads to 500 error. Most likely related to using some email methods that are disabled elsewhere.
+
+* User's name and surname are set to his/her Github login and id respectively. This is to avoid potential database problems if user's Github name is not in ascii.
+
 ## Customization
 
 ### Autolab 
@@ -36,6 +42,22 @@ Once your images are built and the containers are up, login to the local_web_1 c
 `docker exec -it local_web_1 bash`
 
 Find devise.rb and put there your github app id and secret. If you can suggest a better way, please do. I could not make .env working here.
+
+### Assignments
+
+Copy existing assignments (exported from other instances of Autolab) into the docker volume:
+
+`docker cp homework0.tar local_web_1:/home/app/webbapp/courses/CMUDL/`
+
+Login to docker container:
+
+`docker exec -it local_web_1 bash`
+
+Change right on newly copied files, if different:
+
+`chmod -R app:app /home/app/webbapp/courses/CMUDL/homework0`
+
+Go to Course Admin interface and import this assignment.
 
 ### Grading images
 
@@ -71,8 +93,9 @@ Use `rails console` inside the container:
 ```
 User.all
 User.first
-User(where ...).first
+User.where(email: "ermakov.pd@gmail.com").first
 User.new(...).save
+User.where(...).first.delete
 ```
 
 To create a new user use code sample from autolab.rake.
