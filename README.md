@@ -63,7 +63,7 @@ Go to Course Admin interface and import this assignment.
 
 Go to live tango container:
 
-`docker exec -it local_web_1 bash`
+`docker exec -it local_tango_1 bash`
 
 and then pull your image,  i.e.:
 
